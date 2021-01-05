@@ -9,7 +9,8 @@ import {
   NewsScrollModule,
   RacingClockModule,
   PhotoCreditModule,
-  HeroBackgroundModule
+  HeroBackgroundModule,
+  LocationMenuModule
 } from './library';
 
 @NgModule({
@@ -23,6 +24,7 @@ import {
     HeroBackgroundModule,
     BrowserAnimationsModule,
     SearchBoxModule,
+    LocationMenuModule,
     BrowserModule,
     AppRoutingModule
   ],

@@ -13,3 +13,7 @@ export * from './photo-credit/photo-datum';
 
 export * from './hero-background/hero-background.module'
 export * from './hero-background/hero-background.directive'
+
+
+export * from './location-menu/location-menu.module'
+export * from './location-menu/location-menu.component'

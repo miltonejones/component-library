@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import * as photoData from './data/africa.json';
+import { DataSelectorService } from './data-selector.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroBackgroundService {
-
-  constructor() { }
-
+  constructor(private selector: DataSelectorService) { }
   getPhotos() {
     return new Observable(observer => {
-      observer.next(photoData.default)
+      console.log(this.selector.photoType.key)
+      observer.next(this.selector.photoType.data.default)
     })
   }
-
 }

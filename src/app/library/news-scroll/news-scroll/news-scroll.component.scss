@@ -1,0 +1,71 @@
+.container {
+    height: 60px;
+    overflow: hidden;
+    position: absolute;
+    bottom: 64px;
+    width: 100%;
+  }
+  
+  .scrolling-text {
+    position: absolute;
+    bottom: 8px;
+    white-space: nowrap;
+    display: flex;
+    height: 48px;
+  
+    /* outline: dotted 2px red; */
+  }
+  
+  label {
+    margin: 0 10px;
+    max-width: 24vw;
+    width: 24vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  
+    /* outline: dotted 1px rebeccapurple; */
+    display: block;
+    background-color: white;
+    opacity: .7;
+    padding: 0 8px;
+    height: 48px;
+    display: grid;
+    border-radius: 5px;
+    grid-template-columns: 72px 1fr;
+    grid-template-rows: 24px 24px;
+    grid-template-areas: "img head" "img desc";
+  
+    img {
+      grid-area: img;
+      height: 44px;
+      width: auto;
+      margin: 2px 0;
+      max-width: 64px;
+    }
+  
+    .head, .desc {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 95%;
+      max-width: 280px;
+    }
+  
+    .head {
+      grid-area: head;
+  
+      /* mix-blend-mode: exclusion; */
+    }
+  
+    .desc {
+      grid-area: desc;
+      font-size: .8rem;
+  
+      /* mix-blend-mode: exclusion; */
+    }
+  
+    &.bye {
+      display: none;
+    }
+  }

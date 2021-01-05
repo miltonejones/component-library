@@ -1,0 +1,21 @@
+.contract-logo {
+    font-family: "Rubik", sans-serif;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+    width: 250px;
+    transition: bottom .2s;
+  
+    &.on {
+      transform: rotateY(360deg);
+    }
+  
+    a {
+      color: white;
+    }
+  }
+  
+  .photo-credit {
+    font-size: 0.8rem;
+  }

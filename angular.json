@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "library-sandbox"
+  "defaultProject": "library-sandbox",
+  "cli": {
+    "analytics": "696f7b31-9b27-4a45-aee6-00a66146e2e4"
+  }
 }

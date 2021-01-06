@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
+import { DataSelectorService } from '../hero-background/data-selector.service';
+import { PhotoType } from '../hero-background/photo-type.enum';
+import { HeroBackgroundService } from '../hero-background/hero-background.service';
 
 @Component({
   selector: 'app-location-menu',
@@ -7,12 +10,9 @@ import { trigger, state, style, animate, transition, keyframes } from '@angular/
   styleUrls: ['./location-menu.component.scss'],
   animations: [
     trigger("expand", [
-      state("on", style({width: "200px", height: '300px'})),
-      state("off", style({width: "36px", height: '36px'})),
-      transition("off => on", [animate("300ms linear", keyframes([
-        style({width: '200px'}),
-        style({height: '300px'})
-      ]))]),
+      state("on", style({width: "200px", height: 'inherit', opacity: 1, 'z-index': 7})), 
+      state("off", style({width: "36px", height: '36px', opacity: '.4'})),
+      transition("off => on", [animate("300ms linear")]),
       transition("on => off", [animate("300ms linear")])
     ])
   ]
@@ -20,12 +20,16 @@ import { trigger, state, style, animate, transition, keyframes } from '@angular/
 export class LocationMenuComponent implements OnInit {
 
   state = 'off'
-  constructor() { }
+  constructor(public service: HeroBackgroundService) { }
   hover(on = false) {
     this.state = on ? 'on' : 'off';
+  } 
+  setSource(key: PhotoType) {
+    this.service.setSource(key);
+    this.state = 'off';
   }
-
   ngOnInit(): void {
+    console.log(this.service.photoTypes)
+    console.log(this.service.photoType?.key)
   }
-
 } 

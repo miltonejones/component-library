@@ -18,6 +18,7 @@ export class HeroBackgroundDirective implements OnInit, OnChanges {
   photo = '';
   backgroundPos = '';
   backgroundSize = '';
+  timer = -1;
   @HostListener('window:resize', ['$event'])
   onResize(): void {
     this.sizeImageToWindow(this.buildURL(this.photo), this.selected)
@@ -28,6 +29,10 @@ export class HeroBackgroundDirective implements OnInit, OnChanges {
     this.service = h;
   }
   ngOnInit() {
+    this.init();
+    this.service.dataChanged.subscribe(() => this.init());
+  }
+  init(): void {
     this.service.getPhotos()
       .subscribe((data: any) => {
         this.photos = this.curate(randomize(data));
@@ -95,17 +100,21 @@ export class HeroBackgroundDirective implements OnInit, OnChanges {
     return str.replace(/h=(\d+)\&w=(\d+)/, `h=${body.h}&w=${body.w}`);
   }
 
-  next() {
+  next(): any {
     const body = {
       w: document.body.offsetWidth,
       h: document.body.offsetHeight
     }
     const selected = this.photos[this.index];
+    if (this.timer) window.clearTimeout(this.timer);
     if (selected) {
-     // console.log(selected?.width/selected?.height, body.w/body.h);
+      const diff = (selected?.width/selected?.height) / (body.w/body.h);
+      if (diff < .66) {
+        return window.requestAnimationFrame(() => this.next());
+      }
       this.before(this.buildURL(selected?.src?.large2x), selected);
       this.index = ++this.index % this.photos.length;
-      setTimeout(() => this.next(), this.refreshRate);
+      this.timer = window.setTimeout(() => this.next(), this.refreshRate);
     }
   }
 }

@@ -1,3 +1,11 @@
-<div class="location-menu" (mouseenter)="hover(true)" (mouseleave)="hover(false)" [@expand]="state">
+<div class="location-menu {{state}}" (mouseenter)="hover(true)" (mouseleave)="hover(false)" [@expand]="state">
+    <!-- <label>Choose location</label> -->
     <i class="fas fa-map-marker"></i>
+    <ul>
+        <li *ngFor="let type of service.photoTypes"
+        (click)="setSource(type.key)"
+        [class.on]="type.key === service.photoType.key">
+            {{type.key}}
+        </li>
+    </ul>
 </div>

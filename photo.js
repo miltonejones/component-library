@@ -48,4 +48,4 @@ class observable {
     subscribe(next) { this.f({ next }); }
 }
 
-run('moskow').subscribe(console.log)
+run('puerto rico').subscribe(console.log)

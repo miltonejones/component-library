@@ -2,8 +2,10 @@
     height: 60px;
     overflow: hidden;
     position: absolute;
-    bottom: 64px;
-    width: 100%;
+    bottom: 4px;
+    width: calc(100vw - 270px);
+    // bottom: 64px;
+    // width: 100%;
   }
   
   .scrolling-text {

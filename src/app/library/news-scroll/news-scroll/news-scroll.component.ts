@@ -9,10 +9,10 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./news-scroll.component.scss'],
   animations: [
     trigger('scroll', [
-      state('on', style({left: '-100%'})),
+      state('on', style({left: '-110vw'})),
       transition('* => *', [
-        style({left: '-100%'}),
-        animate(60000, style({left: '100%'}))
+        style({left: '-110vw'}),
+        animate(60000, style({left: '80vw'}))
       ])
     ]) 
   ]

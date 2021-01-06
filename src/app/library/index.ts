@@ -13,6 +13,8 @@ export * from './photo-credit/photo-datum';
 
 export * from './hero-background/hero-background.module'
 export * from './hero-background/hero-background.directive'
+export * from './hero-background/photo-type.enum'
+export * from './hero-background/data-selector.service'
 
 
 export * from './location-menu/location-menu.module'

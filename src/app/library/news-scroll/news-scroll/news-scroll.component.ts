@@ -11,7 +11,7 @@ import { filter } from 'rxjs/operators';
     trigger('scroll', [
       state('on', style({left: '-110vw'})),
       transition('* => *', [
-        style({left: '-110vw'}),
+        style({left: '-110vw'}), 
         animate(60000, style({left: '80vw'}))
       ])
     ]) 

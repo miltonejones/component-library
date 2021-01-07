@@ -13,13 +13,15 @@
     </div>
 
     <div class="app-racing-clock">
-        <app-racing-clock></app-racing-clock>
+        <app-racing-clock (musicSelected)="selectMusic()"></app-racing-clock>
     </div>
 
     <div class="app-photo-credit">
         <app-photo-credit [selected]="selected"></app-photo-credit>
     </div>
 
-
+    <div class="app-media-player">
+        <app-media-player [musicSelected]="musicSelected"></app-media-player>
+    </div>
 
 </div>

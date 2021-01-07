@@ -15,7 +15,7 @@ export class HeroBackgroundDirective implements OnInit, OnChanges {
   photos: PhotoDatum[] = [];
   selected: PhotoDatum = {} as PhotoDatum;
   index = 0;
-  photo = '';
+  photo = localStorage['hero-photo'];
   backgroundPos = '';
   backgroundSize = '';
   timer = -1;
@@ -57,6 +57,7 @@ export class HeroBackgroundDirective implements OnInit, OnChanges {
     this.el.style.backgroundImage = `url(${this.photo})`;
     this.el.style.backgroundSize = this.backgroundSize;
     this.el.style.backgroundPosition = this.backgroundPos;
+    localStorage['hero-photo'] = this.photo;
   }
   sizeImageToWindow(image: string, selected: any): Observable<any> {
     return new Observable(observer => {

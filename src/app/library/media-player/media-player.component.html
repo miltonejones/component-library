@@ -1,0 +1,40 @@
+<div class="genre-menu" 
+    *ngIf="genres.length" 
+    [class.playing]="file?.ID" 
+    [class.selected]="genreOn"
+    [class.collapsed]="collapsed">
+
+    <ul class="genre-list">
+        <li [app-eq-playhead]="file" [progress]="progress" (command)="doCommand($event)"
+        [paused]="player$.paused" [drop]="drop" [collapsed]="collapsed"></li>
+
+        <li [@expand]="g.state" [ngClass]="g.state" *ngFor="let g of genres">
+            <div class="genre-name">
+                <div (click)="load(g)">{{g.Name || g.Title}}</div>
+                <div> 
+                    <span *ngIf="filtered" (click)="unfilter()">{{param}} &times;</span>
+                    <input name="tf" placeholder="filter" 
+                    [hidden]="filtered"
+                    [(ngModel)]="param" (change)="filter(param)" type="text" [hidden]="g.state !== 'on'"/></div>
+            </div>
+            <ul class="file-list" *ngIf="g.state === 'on'">
+                <li *ngFor="let f of files; let i = index" (click)="setSourceIndex(i)" [class.on]="f.ID === file.ID">
+                    <div [start-value]="f.Title" [filter-hilite]="param" class="file-title">{{f.Title}}</div>
+                    <div class="file-artist">{{f.artistName}}</div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <ul class="nav-tabs">
+        <li (click)="toggleSource()" [class.on]="!listMode">Genres</li>
+        <li (click)="toggleSource()" [class.on]="listMode">Playlists</li>
+    </ul>
+</div>
+
+
+<div>
+    <audio id="page-audio-player" autoplay="true" #stream>
+        <source type="audio/mpeg" />
+        Your browser does not support the audio element.
+    </audio>
+</div>

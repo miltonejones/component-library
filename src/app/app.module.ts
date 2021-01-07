@@ -10,8 +10,12 @@ import {
   RacingClockModule,
   PhotoCreditModule,
   HeroBackgroundModule,
-  LocationMenuModule
+  LocationMenuModule,
+  MediaPlayerModule,
+  AudioAnalyserService,
+  ProgressLabelModule
 } from './library';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,8 +23,10 @@ import {
   ],
   imports: [
     RacingClockModule,
+    // ProgressLabelModule,
     NewsScrollModule,
     PhotoCreditModule,
+    MediaPlayerModule,
     HeroBackgroundModule,
     BrowserAnimationsModule,
     SearchBoxModule,
@@ -28,7 +34,7 @@ import {
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [AudioAnalyserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

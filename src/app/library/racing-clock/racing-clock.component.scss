@@ -104,6 +104,12 @@
     text-transform: uppercase;
     font-weight: bold;
   }
+
+  .music {
+    position: absolute;
+    right: 18px;
+    top: 4px;
+  }
   
   @media only screen and (max-width: 640px) {
     .container {

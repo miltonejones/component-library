@@ -4,22 +4,27 @@ import {
   ElementRef,
   EventEmitter,
   OnInit,
+  Output,
   ViewChild
 } from "@angular/core";
 import { Observable } from "rxjs";
 
+const TICK_WIDTH = 24;
+const TICK_COUNT = 28;
+const SECOND_OFFSET = 7;
 @Component({
   selector: 'app-racing-clock',
   templateUrl: './racing-clock.component.html',
   styleUrls: ['./racing-clock.component.scss']
 })
 export class RacingClockComponent implements OnInit {
+  @Output() musicSelected = new EventEmitter<void>()
   am = false;
-  dots: Dot[] = [];
+  dots: Tick[] = [];
   timePoint: TimePoint = {} as TimePoint;
   datePoint: DatePoint = {} as DatePoint;
   maxLeft = 0;
-  pastLeft = new EventEmitter<Dot>();
+  pastLeft = new EventEmitter<Tick>();
   url = racingStripe();
   constructor(private ch: ChangeDetectorRef) {}
 
@@ -40,20 +45,20 @@ export class RacingClockComponent implements OnInit {
   ngOnInit() {
     this.tick().subscribe(f => this.display(f));
     this.dots = [];
-    let num = Math.max(new Date().getSeconds() - 3, 0);
-    for (let i = 0; i < 28; i++) {
-      const n = num % 60;
-      const ss = n < 10 ? `0${n}` : n.toString();
-      this.dots.push(new Dot(this.pastLeft, ss, i * 24));
-      this.maxLeft = num;
-      num++;
+    let actual = Math.max(new Date().getSeconds() - SECOND_OFFSET, 0);
+    for (let i = 0; i < TICK_COUNT; i++) {
+      const value = actual % 60;
+      const second = value < 10 ? `0${value}` : value.toString();
+      this.dots.push(new Tick(this.pastLeft, second, i * TICK_WIDTH));
+      this.maxLeft = actual;
+      actual++;
     }
-    this.pastLeft.subscribe((p: any) => {
-      const value = ++this.maxLeft;
-      const num = value % 60;
-      p.trans = "left 0s";
-      p.left = 26 * 24;
-      p.value = num < 10 ? `0${num}` : num.toString();
+    this.pastLeft.subscribe((tick: Tick) => {
+      // const value = ++this.maxLeft;
+      // const actual = value % 60;
+      tick.trans = "left 0s";
+      tick.left = (TICK_COUNT - 2) * TICK_WIDTH;
+      // tick.value = actual < 10 ? `0${actual}` : actual.toString();
     });
     this.go();
   }
@@ -77,24 +82,33 @@ export class RacingClockComponent implements OnInit {
   }
 }
 
-class Dot {
+class Tick {
   left = 0;
   value = "";
   trans = "left 1s";
   active = false;
-  pastLeft = new EventEmitter<Dot>();
-  constructor(p: EventEmitter<Dot>, v = "", l = 0) {
-    this.pastLeft = p;
+  pastLeft = new EventEmitter<Tick>();
+  constructor(tick: EventEmitter<Tick>, v = "", l = 0) {
+    this.pastLeft = tick;
     this.value = v;
     this.left = l;
   }
+  val() {
+    const index = Math.floor(this.left / TICK_WIDTH) - SECOND_OFFSET;
+    const second = Math.max(0, (new Date().getSeconds() + index) % 60);
+    return second < 10 ? `0${second}` : second.toString();
+  }
   go() {
+    const where = (SECOND_OFFSET + 1) * TICK_WIDTH;
+    const min = where - 10;
+    const max = where + 10;
     this.trans = "all 1s";
-    this.left -= 24;
-    if (this.left < -24) {
+    this.left -= TICK_WIDTH;
+    this.value = this.val();
+    if (this.left < -TICK_WIDTH) {
       this.pastLeft.emit(this);
     }
-    this.active = this.left > 90 && this.left < 120;
+    this.active = this.left > min && this.left < max;
   }
 }
 

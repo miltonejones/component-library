@@ -1,0 +1,212 @@
+@import '../shared/variables.scss';
+
+
+.genre-menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: white;
+    border-radius: 5px;
+    border: solid 1px #aaa;
+    overflow: hidden;
+    transition: height .6s;
+  
+    .genre-list, .file-list, .nav-tabs {
+      list-style: none;
+      padding: 0;
+      margin: 12px 20px; 
+      width: 480px;
+      max-height: 500px;
+      overflow-y: scroll;
+    }
+    .nav-tabs {
+      margin: 0 0 12px 20px;
+      padding-bottom: 20px;
+      li {
+        @include standard-link-behavior;
+        float: left;
+        color: #bbb;
+        // outline: dotted 1px red;
+        padding: 4px 24px;
+        &.on {
+          color: #000;
+        }
+      }
+    }
+    
+    .genre-list {
+      // outline: dotted 4px purple;
+      height: 360px;
+      li {
+        position: relative;
+        cursor: default;
+        .genre-name {
+          &:hover {
+            background-color: antiquewhite;
+          }
+        }
+
+        .file-list {
+          border: solid 1px #bbb;
+          // outline: dotted 2px lime;
+          li {
+            border-bottom: dotted 1px #aaa;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            cursor: default;
+            padding: 0 4px;
+            &.on {
+              .genre-name {
+                font-weight: bold;
+              }
+      
+              font-weight: bold;
+              background-color: yellow;
+            }
+      
+            &:hover {
+              background-color: antiquewhite;
+            }
+          }
+      
+          margin: 4px 2px;
+          width: inherit;
+          height: 240px;
+          overflow-y: scroll;
+        }
+
+        &.on {
+          .genre-name {
+            font-weight: bold;
+            display: flex;
+            &:hover {
+              background-color: white;
+            }
+            div {
+              width: 40%;
+              padding: 6px 2px;
+              input {
+                border: none;
+              }
+              &:last-child {
+                text-align: right;
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    &.selected {
+      height: 300px;
+      // outline: dotted 2px dodgerblue;
+      // .file-list {
+      //   // outline: dotted 2px fuchsia;
+      // }
+      &.playing {
+        height: 380px;
+        // outline: dotted 2px firebrick;
+        // .file-list {
+        //   outline: dotted 2px goldenrod;
+        // }
+      }
+      .genre-name {
+        height: 32px;
+        // outline: dotted 2px yellow;
+      }
+
+      &.collapsed {
+        height: 90px;
+        opacity: .8;
+        .file-list, .genre-name {
+          display: none;
+        }
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+    }  
+  }
+  
+  li.head {
+    height: 70px;
+    display: grid;
+    grid-template-rows: 48px 24px;
+    grid-template-columns: 56px 408px 1fr;
+    grid-template-areas: "image eq icon" "label label next";
+    .eq {
+      grid-area: eq;
+      margin: 4px 0;
+      // outline: solid 1px lime;
+    }
+    
+    .icon-button {
+      grid-area: icon;
+    }
+    
+    .ctrl {
+      grid-area: image; 
+      overflow: hidden;
+       img {
+         height: 44px;
+         width: 44px;
+         margin: 2px;
+         &.spin {
+           animation: album-rotate 4s infinite linear;
+           border-radius: 50%;
+           box-shadow: none;
+           box-shadow: 1px 1px 2px #444444;
+           &:hover {
+             box-shadow: 1px 2px 4px #444444;
+           }
+         }
+         &.done {
+           animation: album-drop .4s forwards linear;
+           animation-fill-mode: forwards;
+         }
+       }
+    }
+
+    .track-info {
+      grid-area: label;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      height:20px;
+      margin: 2px 0;
+      width: 450px;
+    }
+
+    .track-next {
+      grid-area: next;
+    }
+  }
+
+  .genre-menu .file-list li .file-artist {
+    font-weight: 300;
+    color: #555;
+    font-size: 0.7rem;
+  }
+
+
+  @keyframes album-rotate {
+    from {
+      transform: rotateZ(0);
+    }
+  
+    to {
+      transform: rotateZ(360deg);
+    }
+  }
+
+  @keyframes album-drop {
+    from {
+      transform: translateY(0px);
+    }
+  
+    to {
+      transform: translateY(64px);
+    }
+  }

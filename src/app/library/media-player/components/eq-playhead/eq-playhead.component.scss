@@ -1,0 +1,58 @@
+li.head {
+    height: 70px;
+    display: grid;
+    grid-template-rows: 48px 24px;
+    grid-template-columns: 56px 408px 1fr;
+    grid-template-areas: "image eq icon" "label label next";
+    .eq {
+        grid-area: eq;
+        margin: 4px 0;
+    }
+
+    .icon-button {
+        grid-area: icon;
+    }
+
+    .ctrl {
+        grid-area: image;
+        overflow: hidden;
+        img {
+            height: 44px;
+            width: 44px;
+            margin: 2px;
+            &.spin {
+                animation: album-rotate 4s infinite linear;
+                border-radius: 50%;
+                box-shadow: none;
+                box-shadow: 1px 1px 2px #444444;
+                &:hover {
+                    box-shadow: 1px 2px 4px #444444;
+                }
+            }
+        }
+    }
+
+    .track-info {
+        grid-area: label;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        height: 20px;
+        margin: 2px 0;
+        width: 450px;
+    }
+
+    .track-next {
+        grid-area: next;
+    }
+}
+
+@keyframes album-rotate {
+    from {
+        transform: rotateZ(0);
+    }
+
+    to {
+        transform: rotateZ(360deg);
+    }
+}

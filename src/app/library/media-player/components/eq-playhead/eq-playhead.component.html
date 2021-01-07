@@ -1,0 +1,18 @@
+<li class="head" *ngIf="file?.ID">
+    <div class="icon-button" (click)="collapse()">
+        <i class="fas fa-chevron-down" [class.fa-chevron-up]="!collapsed"></i>
+    </div> 
+    <div class="eq" color="black" (click)="isBar = !isBar" [eq-graph-label]="barType">eq</div>
+    <div class="ctrl">
+        <img [src]="file.albumImage" 
+        (click)="pause()" [@slot]="drop"
+        [class.spin]="!paused" />
+    </div>
+    <div class="track-info" [inner-text]="file | trackInfo" 
+        fore-color="#f47e60" back-color="#fff"
+        (seek)="seekTo($event)" [progress-label]="progress">
+    </div>
+    <div class="track-next" (click)="next()">
+        <i class="fas fa-forward"></i>
+    </div>
+</li>

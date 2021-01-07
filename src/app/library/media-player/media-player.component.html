@@ -2,6 +2,7 @@
     *ngIf="genres.length" 
     [class.playing]="file?.ID" 
     [class.selected]="genreOn"
+    [@scoot]="dropped"
     [class.collapsed]="collapsed">
 
     <ul class="genre-list">

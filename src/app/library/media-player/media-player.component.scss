@@ -17,7 +17,7 @@
       margin: 12px 20px; 
       width: 480px;
       max-height: 500px;
-      overflow-y: scroll;
+      overflow-y: auto;
     }
     .nav-tabs {
       margin: 0 0 12px 20px;
@@ -32,8 +32,7 @@
           color: #000;
         }
       }
-    }
-    
+    }    
     .genre-list {
       // outline: dotted 4px purple;
       height: 360px;
@@ -96,8 +95,7 @@
           }
         }
       }
-    }
-  
+    }  
     &.selected {
       height: 300px;
       // outline: dotted 2px dodgerblue;
@@ -128,6 +126,9 @@
       }
 
     }  
+    &.dropped {
+      top: 80px;
+    }
   }
   
   li.head {

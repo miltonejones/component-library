@@ -6,6 +6,8 @@ import { Mediafile } from './viewmodel/mediafile';
 import { EqDisplayType } from '../eq-label/constants/eq-display-type.enum';
 import { AudioAnalyserService } from '../eq-label/audio-analyser.service';
 import { PlayheadCommand } from './components/eq-playhead/playhead-command.enum';
+import { GlobalEventService } from '../shared/global-event.service';
+import { CollapseEvent } from '../shared/viewmodel/collapse-event.enum';
 
 export const SONG_HOST = 'https://s3.amazonaws.com/box.import/';
 @Component({
@@ -19,12 +21,12 @@ export const SONG_HOST = 'https://s3.amazonaws.com/box.import/';
       state('gone', style({ left: '-100%', height: '0' })),
       transition('* <=> *', [animate('300ms ease-out')])
     ]),
-    // trigger('slot', [
-    //   state('on', style({ transform: 'translateY(0px)' })),
-    //   state('off', style({ transform: 'translateY(64px)' })),
-    //   transition('on => off', [animate('300ms ease-out')]),
-    //   transition('off => on', [animate('300ms ease-out')])
-    // ])
+    trigger('scoot', [
+      state('on', style({ top: '80px' })),
+      state('off', style({ top: '10px' })),
+      transition('on => off', [animate('300ms ease-out')]),
+      transition('off => on', [animate('300ms ease-out')])
+    ])
   ]
 })
 export class MediaPlayerComponent implements OnInit, AfterViewInit {
@@ -39,6 +41,7 @@ export class MediaPlayerComponent implements OnInit, AfterViewInit {
   isBar = true;
   collapsed = false;
   listMode = false;
+  dropped = 'off';
   filtered = !1;
   audioURL = '';
   drop = 'off'
@@ -51,11 +54,14 @@ export class MediaPlayerComponent implements OnInit, AfterViewInit {
   @ViewChild("stream") set playerRef(ref: ElementRef<HTMLAudioElement>) {
     this.player$ = ref.nativeElement;
   }
-  constructor(private service: MediaPlayerService, private connect: AudioAnalyserService, private ch: ChangeDetectorRef) { }
+  constructor(private service: MediaPlayerService, private connect: AudioAnalyserService, private ch: ChangeDetectorRef, private gs: GlobalEventService) { }
   ngOnInit(): void {
     const mode = localStorage['media-player-mode'];
     this.listMode = mode === 'list';
     this.musicSelected.subscribe(this.init.bind(this))
+    this.gs.elementCollapse.subscribe((event: CollapseEvent) => {
+      this.dropped = event === CollapseEvent.EXPAND ? 'on' : 'off'
+    })
   }
   get barType(): EqDisplayType {
     return this.isBar ? EqDisplayType.CSS : EqDisplayType.LINE;

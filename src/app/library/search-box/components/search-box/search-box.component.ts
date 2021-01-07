@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { GlobalEventService } from 'src/app/library/shared/global-event.service';
+import { CollapseEvent } from 'src/app/library/shared/viewmodel/collapse-event.enum';
 const COOKIE_NAME = 'app-search-box-saved-search';
 @Component({
   selector: 'app-search-box',
@@ -32,7 +34,7 @@ export class SearchBoxComponent implements OnInit {
   value = '';
   state = 'off';
   saved = [];
-  constructor() { }
+  constructor(private service: GlobalEventService) { }
 
   ngOnInit(): void {
     this.load();
@@ -52,6 +54,7 @@ export class SearchBoxComponent implements OnInit {
   }
   focus(on = true) {
     this.state = on ? 'on' : 'off';
+    this.service.elementCollapse.emit(on ? CollapseEvent.EXPAND : CollapseEvent.COLLAPSE);
   }
   find(value?: string): void {
     if (value !== undefined) { this.value = value; }

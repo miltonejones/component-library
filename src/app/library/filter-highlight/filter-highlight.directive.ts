@@ -42,7 +42,7 @@ export class FilterHighlightDirective {
       }
       return;
     }
-    console.log(this.startValue)
+    // console.log(this.startValue)
     this.el.innerText = this.startValue;
   }
   ngOnDestroy(): void {

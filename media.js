@@ -1,19 +1,23 @@
 const request = require('request');
 const fs = require('fs');
 const MEDIA_URL = 'http://sandbox.miltonjones.nl:1932/';
-const run = (keyList) => {
+const run = (genreList) => {
+    const ret = [];
     return new observable(o => {
         const next = () => {
-            if (!keyList.length) {
-                o.next('all done');
+            if (!genreList.length) {
+                o.next(ret);
                 return;
             }
-            const name = keyList.shift();
+            const genre = genreList.shift();
+            const name = genre.genreKey;
             const url = MEDIA_URL + 'genre?id=' + name;
-            request(url, (error, response, body) => read(name, body));
+            console.log(url)
+            request(url, (error, response, body) => read(genre, body));
         }
-        const read = (name, body) => {
-            fs.writeFileSync('src/app/library/media-player/data/' + name + '.json', body)
+        const read = (genre, body) => {
+            genre.related = JSON.parse(body);
+            ret.push(genre);
             wait(2000).subscribe(next);
         };
         next();
@@ -49,8 +53,10 @@ class observable {
     subscribe(next) { this.f({ next }); }
 }
 
-genres().subscribe((list) => {
+const save = (list) => {
+    fs.writeFileSync('src/app/library/media-player/data/db_genre.json', JSON.stringify(list))
+}
 
-    fs.writeFileSync('src/app/library/media-player/data/genres.json', JSON.stringify(list))
-    // run(list.map(f => f.genreKey)).subscribe(console.log)
+genres().subscribe((list) => {
+    run(list).subscribe(save)
 })

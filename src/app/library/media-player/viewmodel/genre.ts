@@ -1,3 +1,5 @@
+import { Mediafile } from "./mediafile";
+
 export interface Genre {
     Count: number;
     Name: string;
@@ -7,4 +9,5 @@ export interface Genre {
     percent: number;
     state: string;
     Title?: string;
+    related?: Mediafile[];
 }

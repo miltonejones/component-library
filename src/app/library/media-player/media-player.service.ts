@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { Genre } from './viewmodel/genre';
 import { Mediafile } from './viewmodel/mediafile';
 import { generateKey } from '../shared/util';
+import * as genreData from './data/db_genre.json';
 export const MEDIA_URL = 'http://sandbox.miltonjones.nl:1932/';
 @Injectable({
   providedIn: 'root'
@@ -82,6 +83,7 @@ export class MediaPlayerService {
     return new Observable<Genre[]>(observer => {
       this.http.get<Genre[]>(`${MEDIA_URL}genre`)
         .pipe(catchError(err => {
+          observer.next(genreData.default as Genre[])
           console.log({ err })
           return of([])
         }))
@@ -94,9 +96,18 @@ export class MediaPlayerService {
       this.http.get<Mediafile[]>(`${MEDIA_URL}genre?id=${id}`)
         .pipe(catchError(err => {
           console.log({ err })
-          return of([])
+          // observer.next(this.localGenre(id));
+          return of(this.localGenre(id))
         }))
         .subscribe(data => observer.next(data));
     });
+  }
+  localGenre(id: string) {
+    const genres: Genre[] = genreData.default as Genre[];
+    const genre = genres.filter(g => g.genreKey === id);
+    if (genre.length) {
+      return genre[0].related;
+    }
+    return []
   }
 }

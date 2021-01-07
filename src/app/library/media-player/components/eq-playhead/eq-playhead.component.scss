@@ -1,8 +1,30 @@
+@import "../../../shared/variables.scss";
+
+@mixin round-link-behavior {
+    border: solid 1px #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    padding: 0 0px;
+    margin:0 4px;
+    i {
+        margin: 5px;
+    }
+    &:hover {
+        border: solid 1px #bbb;
+        box-shadow: 1px 1px 2px #444;
+    }
+    &:active {
+        border: solid 1px #000;
+        box-shadow: none;
+    }
+}
+
 li.head {
     height: 70px;
     display: grid;
     grid-template-rows: 48px 24px;
-    grid-template-columns: 56px 408px 1fr;
+    grid-template-columns: 48px 400px 1fr;
     grid-template-areas: "image eq icon" "label label next";
     .eq {
         grid-area: eq;
@@ -11,6 +33,7 @@ li.head {
 
     .icon-button {
         grid-area: icon;
+        @include round-link-behavior;
     }
 
     .ctrl {
@@ -39,11 +62,13 @@ li.head {
         overflow: hidden;
         height: 20px;
         margin: 2px 0;
-        width: 450px;
+        width: 440px;
+        outline: solid 1px #bbb;
     }
 
     .track-next {
         grid-area: next;
+        @include round-link-behavior;
     }
 }
 

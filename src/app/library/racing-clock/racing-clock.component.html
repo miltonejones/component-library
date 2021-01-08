@@ -1,5 +1,5 @@
 <div class="container">
-	<div class="clock" [style.background-image]="'url(' + url + ')'">
+	<div class="clock" [class.dropped]="dropped" [style.background-image]="'url(' + url + ')'">
 		<div class="day">
 			<div class="dt-day">{{datePoint.day}}</div>
 			<div class="dt-date">{{datePoint.date}}</div>

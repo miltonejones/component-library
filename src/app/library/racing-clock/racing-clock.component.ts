@@ -8,6 +8,9 @@ import {
   ViewChild
 } from "@angular/core";
 import { Observable } from "rxjs";
+import { GlobalEventService } from '../shared/global-event.service';
+import { CollapseEventData } from '../shared/viewmodel/collapse-event-data';
+import { CollapseEvent } from '../shared/viewmodel/collapse-event.enum';
 
 const TICK_WIDTH = 24;
 const TICK_COUNT = 28;
@@ -26,7 +29,8 @@ export class RacingClockComponent implements OnInit {
   maxLeft = 0;
   pastLeft = new EventEmitter<Tick>();
   url = racingStripe();
-  constructor(private ch: ChangeDetectorRef) {}
+  dropped = false;
+  constructor(private ch: ChangeDetectorRef, private gs: GlobalEventService) {}
 
   display(f: TimePoint) {
     this.timePoint = f;
@@ -60,6 +64,9 @@ export class RacingClockComponent implements OnInit {
       tick.left = (TICK_COUNT - 2) * TICK_WIDTH;
       // tick.value = actual < 10 ? `0${actual}` : actual.toString();
     });
+    this.gs.elementCollapse.subscribe((data: CollapseEventData) => {
+      this.dropped = data.source === 'player' && data.event === CollapseEvent.EXPAND;
+    })
     this.go();
   }
   tick(): Observable<TimePoint> {

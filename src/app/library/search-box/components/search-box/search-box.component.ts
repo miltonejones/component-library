@@ -54,7 +54,7 @@ export class SearchBoxComponent implements OnInit {
   }
   focus(on = true) {
     this.state = on ? 'on' : 'off';
-    this.service.elementCollapse.emit(on ? CollapseEvent.EXPAND : CollapseEvent.COLLAPSE);
+    this.service.elementCollapse.emit({source: 'box', event: on ? CollapseEvent.EXPAND : CollapseEvent.COLLAPSE});
   }
   find(value?: string): void {
     if (value !== undefined) { this.value = value; }

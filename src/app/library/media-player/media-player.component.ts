@@ -8,6 +8,7 @@ import { AudioAnalyserService } from '../eq-label/audio-analyser.service';
 import { PlayheadCommand } from './components/eq-playhead/playhead-command.enum';
 import { GlobalEventService } from '../shared/global-event.service';
 import { CollapseEvent } from '../shared/viewmodel/collapse-event.enum';
+import { CollapseEventData } from '../shared/viewmodel/collapse-event-data';
 
 export const SONG_HOST = 'https://s3.amazonaws.com/box.import/';
 @Component({
@@ -22,7 +23,7 @@ export const SONG_HOST = 'https://s3.amazonaws.com/box.import/';
       transition('* <=> *', [animate('300ms ease-out')])
     ]),
     trigger('scoot', [
-      state('on', style({ top: '80px' })),
+      state('on', style({ top: '180px' })),
       state('off', style({ top: '10px' })),
       transition('on => off', [animate('300ms ease-out')]),
       transition('off => on', [animate('300ms ease-out')])
@@ -59,8 +60,8 @@ export class MediaPlayerComponent implements OnInit, AfterViewInit {
     const mode = localStorage['media-player-mode'];
     this.listMode = mode === 'list';
     this.musicSelected.subscribe(this.init.bind(this))
-    this.gs.elementCollapse.subscribe((event: CollapseEvent) => {
-      this.dropped = event === CollapseEvent.EXPAND ? 'on' : 'off'
+    this.gs.elementCollapse.subscribe((data: CollapseEventData) => {
+      this.dropped = data.source === 'box' && data.event === CollapseEvent.EXPAND ? 'on' : 'off'
     })
   }
   get barType(): EqDisplayType {
@@ -94,6 +95,7 @@ export class MediaPlayerComponent implements OnInit, AfterViewInit {
           ? data.filter(f => f.Count > 49)
           : data;
         this.genres.map(g => g.state = 'off');
+        this.gs.expand('player');
       }
       tmp.unsubscribe();
     });
@@ -155,6 +157,7 @@ export class MediaPlayerComponent implements OnInit, AfterViewInit {
     const audioElement = this.player$;
     audioElement.src = this.audioURL;
     setTimeout(() => this.ch.detectChanges(), 1999);
+    this.gs.collapse('player');
   }
   setSource(o: string) {
     const audioURL = `${SONG_HOST}${o}`.replace('#', '%23').replace(/\+/g, '%2B');

@@ -13,9 +13,9 @@ import {
   LocationMenuModule,
   MediaPlayerModule,
   AudioAnalyserService,
-  ProgressLabelModule
+  ProgressLabelModule,
+  ScrollingTextModule
 } from './library';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     RacingClockModule,
+    ScrollingTextModule,
     // ProgressLabelModule,
     NewsScrollModule,
     PhotoCreditModule,

@@ -8,10 +8,14 @@ import { PhotoDatum } from './library';
 })
 export class AppComponent {
   title = 'library-sandbox';
+  location = 'norway'
   selected: PhotoDatum = {} as PhotoDatum;
   musicSelected = new EventEmitter<void>();
   photoChange(e: PhotoDatum) {
     this.selected = e;
+  }
+  setLocation(e: string) {
+    this.location = e;
   }
   selectMusic() {
     this.musicSelected.emit();

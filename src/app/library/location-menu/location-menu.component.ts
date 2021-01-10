@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
 import { DataSelectorService } from '../hero-background/data-selector.service';
 import { PhotoType } from '../hero-background/photo-type.enum';
@@ -18,7 +18,7 @@ import { HeroBackgroundService } from '../hero-background/hero-background.servic
   ]
 })
 export class LocationMenuComponent implements OnInit {
-
+  @Output() locationChange = new EventEmitter<string>();
   state = 'off'
   constructor(public service: HeroBackgroundService) { }
   hover(on = false) {
@@ -26,6 +26,7 @@ export class LocationMenuComponent implements OnInit {
   } 
   setSource(key: PhotoType) {
     this.service.setSource(key);
+    this.locationChange.emit(key);
     this.state = 'off';
   }
   ngOnInit(): void {

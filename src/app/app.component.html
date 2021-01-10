@@ -5,11 +5,12 @@
     </div>
 
     <div class="app-location-menu">
-        <app-location-menu></app-location-menu>
+        <app-location-menu (locationChange)="setLocation($event)"></app-location-menu>
     </div>
 
     <div class="app-news-scroll">
-        <app-news-scroll></app-news-scroll>
+        <!-- <app-news-scroll></app-news-scroll> -->
+        <app-scrolling-text [subject]="location"></app-scrolling-text>
     </div>
 
     <div class="app-racing-clock">

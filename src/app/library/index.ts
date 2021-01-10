@@ -14,8 +14,7 @@ export * from './photo-credit/photo-datum';
 export * from './hero-background/hero-background.module'
 export * from './hero-background/hero-background.directive'
 export * from './hero-background/photo-type.enum'
-export * from './hero-background/data-selector.service'
-
+export * from './hero-background/data-selector.service';
 
 export * from './location-menu/location-menu.module'
 export * from './location-menu/location-menu.component'
@@ -33,3 +32,7 @@ export * from './progress-label/progress-label.directive'
 
 export * from './filter-highlight/filter-highlight.module'
 export * from './filter-highlight/filter-highlight.directive'
+
+export * from './scrolling-text/scrolling-text.module';
+export * from './scrolling-text/scrolling-text.component';
+export * from './scrolling-text/scrolling-text.service';

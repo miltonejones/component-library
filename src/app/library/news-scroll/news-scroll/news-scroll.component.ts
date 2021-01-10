@@ -6,7 +6,7 @@ import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-news-scroll',
   templateUrl: './news-scroll.component.html',
-  styleUrls: ['./news-scroll.component.scss'],
+  styleUrls: ['./news-scroll.component.scss', './news-scroll.animate.scss'],
   animations: [
     trigger('scroll', [
       state('on', style({left: '-110vw'})),

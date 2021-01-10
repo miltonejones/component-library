@@ -59,10 +59,10 @@ export class MediaPlayerComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const mode = localStorage['media-player-mode'];
     this.listMode = mode === 'list';
-    this.musicSelected.subscribe(this.init.bind(this))
+    this.musicSelected.subscribe(this.init.bind(this));
     this.gs.elementCollapse.subscribe((data: CollapseEventData) => {
       this.dropped = data.source === 'box' && data.event === CollapseEvent.EXPAND ? 'on' : 'off'
-    })
+    });
   }
   get barType(): EqDisplayType {
     return this.isBar ? EqDisplayType.CSS : EqDisplayType.LINE;
@@ -84,6 +84,14 @@ export class MediaPlayerComponent implements OnInit, AfterViewInit {
     this.ch.detectChanges();
   }
   init() {
+    if (this.genres.length) {
+      this.genres = [];
+      this.gs.collapse('player');  
+      return;
+    }
+    this.beginLoad();
+  }
+  beginLoad() {
     const request = this.listMode
       ? this.service.getPlaylists()
       : this.service.getGenres()
@@ -185,6 +193,10 @@ export class MediaPlayerComponent implements OnInit, AfterViewInit {
         break;
       case PlayheadCommand.COLLAPSE:
         this.collapsed = !this.collapsed;
+        this.gs.elementCollapse.emit({
+          source: 'player',
+          event: this.collapsed ? CollapseEvent.COLLAPSE : CollapseEvent.EXPAND
+        });
         break;
       default:
       // do nothing

@@ -102,7 +102,7 @@
   .day {
     position: absolute;
     right: 36px;
-    top: 4px;
+    top: 8px;
     width: 60px;
   }
   
@@ -117,6 +117,7 @@
     position: absolute;
     right: 18px;
     top: 4px;
+    @include round-link-behavior;
   }
   
   @media only screen and (max-width: 640px) {

@@ -1,8 +1,6 @@
-
 <div class="container">
-    <div class="scrolling-text"  [@scroll]="state" (@scroll.done)="scrollDone()">
-      <label *ngFor="let art of articles; let i = index"
-      [class.bye]="i > 3  ">
+  <div class="scrolling-text" [@scroll]="state" (@scroll.done)="scrollDone()">
+    <label *ngFor="let art of articles; let i = index" [class.bye]="i > 3  ">
       <div class="head">
         {{art.title}}
       </div>
@@ -11,8 +9,7 @@
       </div>
       <img [src]="art.urlToImage">
     </label>
-    </div>
   </div>
+</div>
 
-  
-  <!-- -->
+ 

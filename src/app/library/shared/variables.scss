@@ -1,86 +1,107 @@
-
-$dark-window-color: #1f3d55;// #1f3d55;
-$light-window-color: #406172; //#406172;
+$dark-window-color: #1f3d55;
+$light-window-color: #406172;
 $hilite-text-backcolor: #ffd800;
-$hilite-text-forecolor: #37a; //#8f00ff;
+$hilite-text-forecolor: #37a;
 $hilite-icon-forecolor: #ff0080;
 $right-border-color: #c0c0c0;
 $even-row-color: #eef4fe;
 
-$panel-text-color: white;//white
-$menu-text-color: #e0e0e0;//e0e0e0
+$panel-text-color: white;
+$menu-text-color: #e0e0e0;
 
 @mixin standard-button-behavior {
-    color: black;
-    cursor: default;
-    padding: 2px 4px;
-    &:hover {
-      color: #37a;
-      box-shadow: 1px 1px 4px #777;
-    }
-    &:active {
-      color: $hilite-text-forecolor;
-      border: dotted 1px gray;
-      box-shadow: none;
-    }
+  color: black;
+  cursor: default;
+  padding: 2px 4px;
+  &:hover {
+    color: #37a;
+    box-shadow: 1px 1px 4px #777;
   }
-  
-  @mixin standard-link-behavior {
-    color: black;
-    cursor: default;
-    @include link-hover;
+  &:active {
+    color: $hilite-text-forecolor;
+    border: dotted 1px gray;
+    box-shadow: none;
   }
-  
-  @mixin link-hover {
-    &:hover {
-      color: #37a;
-      text-decoration: underline;
-    }
-    &:active {
-      color: $hilite-text-forecolor;
-    }
+}
+
+@mixin standard-link-behavior {
+  color: black;
+  cursor: default;
+  @include link-hover;
+}
+
+@mixin link-hover {
+  &:hover {
+    color: #37a;
+    text-decoration: underline;
   }
-  @mixin no-wrap {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  &:active {
+    color: $hilite-text-forecolor;
   }
-  
-  @mixin gray-link-behavior {
-    color: #777;
-    cursor: default;
-    line-height: 1.2;
-    @include link-hover;
+}
+@mixin no-wrap {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin gray-link-behavior {
+  color: #777;
+  cursor: default;
+  line-height: 1.2;
+  @include link-hover;
+}
+
+@mixin hidden-icon {
+  opacity: 0.1;
+  color: white;
+  &:hover {
+    opacity: 1;
+    text-shadow: 1px 1px 2px #bbb;
+    color: $hilite-text-forecolor;
   }
-  
-  @mixin hidden-icon {
-    opacity: .1;
+  &:focus {
     color: white;
-    &:hover {
-      opacity: 1;
-      text-shadow: 1px 1px 2px #bbb;
-      color: $hilite-text-forecolor;
+  }
+  &:active {
+    color: $hilite-icon-forecolor;
+  }
+}
+@mixin round-link-behavior {
+  border: solid 1px #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  padding: 0 0px;
+  margin: 0 4px;
+  i {
+    margin: 5px;
+  }
+  &:hover {
+    border: solid 1px #bbb;
+    box-shadow: 1px 1px 2px #444;
+  }
+  &:active {
+    border: solid 1px #000;
+    box-shadow: none;
+  }
+}
+@mixin bp($point) {
+  @if $point == papa {
+    @media (min-width: 1600px) {
+      @content;
     }
-    &:focus {
-      color: white;
+  } @else if $point == mama {
+    @media (max-width: 840px) {
+      @content;
     }
-    &:active {
-      color: $hilite-icon-forecolor;
+  } @else if $point == baby {
+    @media (max-width: 400px) {
+      @content;
+    }
+  } @else if $point == sis {
+    @media (max-height: 540px) {
+      @content;
     }
   }
-  
-  @mixin bp($point) {
-    @if $point == papa {
-      @media (min-width: 1600px) { @content; }
-    }
-    @else if $point == mama {
-      @media (max-width: 840px) { @content; }
-    }
-    @else if $point == baby {
-      @media (max-width: 400px)  { @content; }
-    }
-    @else if $point == sis {
-      @media (max-height: 540px)  { @content; }
-    }
-  }
-  
+}

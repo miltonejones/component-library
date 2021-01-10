@@ -12,7 +12,6 @@ const SCROLL_RATE = 60000;
   styleUrls: ['./scrolling-text.component.scss']
 })
 export class ScrollingTextComponent implements OnInit, AfterViewInit, AfterViewChecked {
-
   @Input() subject = SCROLLER_SUBJECT;
   cached = ''
   headerHeight = 195;

@@ -1,29 +1,27 @@
-.app-search-box {
-    margin: 10px;
-    position: absolute;
-}
-
 
 .page-body {
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    background-size: 100vw 100vh;
-    transition: all 1.5s;
-    padding: 0;
-
-    .app-news-scroll {
-        outline: solid 1px springgreen;
-        z-index: 1;    
-        position: absolute;
-        bottom: 0px;
-    }
-  
-    .app-location-menu {
-        outline: solid 1px saddlebrown;
-        z-index: 22;
-        position: absolute;
-        bottom: 0px;
-        right: 10px;
-    }
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  background-size: 100vw 100vh;
+  transition: all 1.5s;
+  padding: 0;
+  .app-search-box {
+    margin: 10px;
+    position: absolute;
+  }  
+  .app-news-scroll {
+    outline: solid 1px springgreen;
+    z-index: 1;
+    position: absolute;
+    bottom: 0px;
   }
+
+  .app-location-menu {
+    outline: solid 1px saddlebrown;
+    z-index: 22;
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+  }
+}

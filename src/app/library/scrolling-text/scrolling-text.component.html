@@ -3,26 +3,16 @@
 		<ul class="stage" #el>
 			<li class="scene" *ngFor="let art of articles; let i = index" [hidden]="i > 3">
 				<div class="movie" (mouseover)="player.pause()" (mouseout)="player.play()">
-					<div class="poster" >
-						<h1 [innerHTML]="art.title | truncate : 55">this will be the headline</h1>
-						<p [innerHTML]="art.description | truncate : 140">The story blurb will be here</p>
-            <img [src]="art.urlToImage"/>
+					<div class="poster">
+						<h1 [innerHTML]="art.title | truncate : 55"></h1>
+						<p [innerHTML]="art.description | truncate : 140"></p>
+						<img [src]="art.urlToImage" />
 					</div>
 					<div class="info">
-						<header [style.background-image]="'url(' + art.urlToImage + ')'"
-							[style.height.px]="headerHeight">
-							<h1 [innerHTML]="art.title">this will be the headline</h1>
-							<!-- <span class="year">subcaption here</span> -->
+						<header [style.background-image]="'url(' + art.urlToImage + ')'" [style.height.px]="headerHeight">
+							<h1 [innerHTML]="art.title"></h1>
 						</header>
-						<p [innerHTML]="art.content">
-							In Bedford Falls, New York on Christmas Eve, George Bailey is deeply troubled. Prayers for
-							his
-							well-being from friends and family reach Heaven. Clarence Odbody, Angel Second Class, is
-							assigned to
-							visit Earth to save George, thereby earning his wings. Franklin and Joseph, the head angels,
-							review
-							George's life with Clarence.
-						</p>
+						<p [innerHTML]="art.content"></p>
 						<ul class="credits">
 							<li [innerHTML]="art.author"></li>
 							<li><a [href]="art.url">Read more</a></li>

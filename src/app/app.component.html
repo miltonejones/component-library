@@ -1,28 +1,27 @@
 <div class="page-body" (photoChange)="photoChange($event)" app-hero-background>
 
-    <div class="app-search-box">
-        <app-search-box></app-search-box>
-    </div>
+  <div class="app-search-box">
+    <app-search-box></app-search-box>
+  </div>
 
-    <div class="app-location-menu">
-        <app-location-menu (locationChange)="setLocation($event)"></app-location-menu>
-    </div>
+  <div class="app-location-menu">
+    <app-location-menu (locationChange)="setLocation($event)"></app-location-menu>
+  </div>
 
-    <div class="app-news-scroll">
-        <!-- <app-news-scroll></app-news-scroll> -->
-        <app-scrolling-text [subject]="location"></app-scrolling-text>
-    </div>
+  <div class="app-news-scroll">
+    <app-scrolling-text [subject]="location"></app-scrolling-text>
+  </div>
 
-    <div class="app-racing-clock">
-        <app-racing-clock (musicSelected)="selectMusic()"></app-racing-clock>
-    </div>
+  <div class="app-racing-clock">
+    <app-racing-clock (musicSelected)="selectMusic()"></app-racing-clock>
+  </div>
 
-    <div class="app-photo-credit">
-        <app-photo-credit [selected]="selected"></app-photo-credit>
-    </div>
+  <div class="app-photo-credit">
+    <app-photo-credit [selected]="selected"></app-photo-credit>
+  </div>
 
-    <div class="app-media-player">
-        <app-media-player [musicSelected]="musicSelected"></app-media-player>
-    </div>
+  <div class="app-media-player">
+    <app-media-player [musicSelected]="musicSelected"></app-media-player>
+  </div>
 
 </div>

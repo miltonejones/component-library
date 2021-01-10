@@ -7,7 +7,7 @@ import { NewsArticleList } from './viewmodel/news-article-list';
 export const NEWS_API_KEY = "ae230f263ba24e9e8106e38970b4c747";
 export function pad(num: number, size: number) {
   var s = "000000000" + num;
-  return s.substr(s.length-size);
+  return s.substr(s.length - size);
 }
 export function formattedDate() {
   const m = pad(new Date().getMonth(), 2);
@@ -36,7 +36,7 @@ export class ScrollingTextService {
       console.log(address)
       this.http.get(address)
         .pipe(catchError(err => {
-          console.log({err})
+          console.log({ err })
           observer.next(this.subjectData(subject));
           return of([])
         }))

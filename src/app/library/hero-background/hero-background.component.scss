@@ -1,0 +1,12 @@
+.hero {
+}
+
+.photos {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  display: flex;
+  .photo {
+    outline: solid 1px saddlebrown;
+  }
+}

@@ -7,11 +7,9 @@ const NEWS_API_KEY = "ae230f263ba24e9e8106e38970b4c747";
 const DATA_PATH = 'src/assets/scrolling-data.json';
 const NEWS_REGIONS = ['iceland', 'india', 'alaska', 'norway', 'tokyo',
   'berlin', 'amsterdam', 'africa', 'puerto+rico', 'china'];
-
 var AWS = require('aws-sdk');
 AWS.config.loadFromPath('../config/config.json');
 const s3 = new AWS.S3();
-
 class observable {
   constructor(f) { this.f = f }
   subscribe(next) { this.f({ next }); }
@@ -68,7 +66,6 @@ const save = data => {
   fs.writeFileSync(DATA_PATH, JSON.stringify(data));
   put(data);
 };
-
 const put = Body => {
   return new observable(o => {
     var upload = new AWS.S3.ManagedUpload({
@@ -81,5 +78,4 @@ const put = Body => {
     return upload.promise().then(o.next);
   })
 }
-
-download(NEWS_REGIONS).subscribe(save)
+download(NEWS_REGIONS).subscribe(save);

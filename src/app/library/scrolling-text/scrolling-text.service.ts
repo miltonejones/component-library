@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import * as newsData from './scrolling-text-data/scrolling-data.json';
 import { NewsArticleList } from './viewmodel/news-article-list';
 export const NEWS_API_KEY = "ae230f263ba24e9e8106e38970b4c747";
 export function pad(num: number, size: number) {
@@ -21,26 +20,35 @@ export function formattedDate() {
 export class ScrollingTextService {
 
   constructor(private http: HttpClient) { }
-  subjectData(subject: string) {
-    return newsData.default[subject] as NewsArticleList;
-  }
   buildURL(subject: string): string {
     const address = ['http://newsapi.org/v2/everything?q='];
     address.push(subject, '&from=', formattedDate());
     address.push('&sortBy=publishedAt&apiKey=', NEWS_API_KEY);
     return address.join('');
   }
-  getNews(subject: string) {
-    const address = this.buildURL(subject);
+  getNews(sub: string) {
+    const subject = sub.toLowerCase();
     return new Observable<any>(observer => {
-      console.log(address)
-      this.http.get(address)
-        .pipe(catchError(err => {
-          console.log({ err })
-          observer.next(this.subjectData(subject));
-          return of([])
-        }))
-        .subscribe(data => observer.next(data));
+      const get = () => {
+        const address = this.buildURL(subject);
+        console.log(address)
+        this.http.get(address)
+          .pipe(catchError(err => {
+            console.log({ err }, 'falling back on cached news data for "%s"', subject);
+            retry();
+            return of([]);
+          }))
+          .subscribe(data => observer.next(data));
+      }
+      const retry = () => {
+        const address = `/assets/scrolling-data.json`;
+        this.http.get<{[prop: string]: NewsArticleList}>(address)
+          .subscribe(json => {
+            console.log(subject, json[subject])
+            observer.next(json[subject]);
+          });
+      }
+      get();
     });
   }
 }

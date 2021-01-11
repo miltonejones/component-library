@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import * as newsData from './scrolling-text-data/scrolling-data.json';
 import { NewsArticleList } from './viewmodel/news-article-list';
 export const NEWS_API_KEY = "ae230f263ba24e9e8106e38970b4c747";
 export function pad(num: number, size: number) {
@@ -21,9 +20,6 @@ export function formattedDate() {
 export class ScrollingTextService {
 
   constructor(private http: HttpClient) { }
-  subjectData(subject: string) {
-    return newsData.default[subject] as NewsArticleList;
-  }
   buildURL(subject: string): string {
     const address = ['http://newsapi.org/v2/everything?q='];
     address.push(subject, '&from=', formattedDate());

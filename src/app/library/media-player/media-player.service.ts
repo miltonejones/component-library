@@ -11,7 +11,7 @@ export const MEDIA_URL = 'http://sandbox.miltonjones.nl:1932/';
   providedIn: 'root'
 })
 export class MediaPlayerService {
-
+  localMode = false;
   playLists: any[] = [];
   constructor(private http: HttpClient) { }
   getPlaylists() {
@@ -83,6 +83,7 @@ export class MediaPlayerService {
     return new Observable<Genre[]>(observer => {
       this.http.get<Genre[]>(`${MEDIA_URL}genre`)
         .pipe(catchError(err => {
+          this.localMode = true;
           observer.next(genreData.default as Genre[])
           console.log({ err })
           return of([])
@@ -93,6 +94,10 @@ export class MediaPlayerService {
   getGenre(id: string) {
     return new Observable<Mediafile[]>(observer => {
       id = id.replace('&', '');
+      if (this.localMode) {
+        observer.next(this.localGenre(id));
+        return;
+      }
       this.http.get<Mediafile[]>(`${MEDIA_URL}genre?id=${id}`)
         .pipe(catchError(err => {
           console.log({ err })

@@ -31,12 +31,12 @@
             </ul>
         </li>
     </ul>
-    <ul class="nav-tabs">
+    <ul class="nav-tabs" [hidden]="service.localMode">
         <li (click)="toggleSource()" [class.on]="!listMode">Genres</li>
         <li (click)="toggleSource()" [class.on]="listMode">Playlists</li>
     </ul>
 </div>
-
+ 
 
 <div>
     <audio id="page-audio-player" autoplay="true" #stream>

@@ -56,7 +56,7 @@ export class MediaPlayerComponent implements OnInit, AfterViewInit {
   @ViewChild("stream") set playerRef(ref: ElementRef<HTMLAudioElement>) {
     this.player$ = ref.nativeElement;
   }
-  constructor(private service: MediaPlayerService, private connect: AudioAnalyserService, private ch: ChangeDetectorRef, private gs: GlobalEventService) { }
+  constructor(public service: MediaPlayerService, private connect: AudioAnalyserService, private ch: ChangeDetectorRef, private gs: GlobalEventService) { }
   ngOnInit(): void {
     const mode = localStorage['media-player-mode'];
     this.listMode = mode === 'list';

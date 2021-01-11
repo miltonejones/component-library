@@ -37,8 +37,7 @@ export class ScrollingTextService {
       this.http.get(address)
         .pipe(catchError(err => {
           console.log({ err })
-          observer.next(this.subjectData(subject));
-          return of([])
+          return of(this.subjectData(subject))
         }))
         .subscribe(data => observer.next(data));
     });

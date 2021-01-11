@@ -26,14 +26,15 @@ export class ScrollingTextService {
     address.push('&sortBy=publishedAt&apiKey=', NEWS_API_KEY);
     return address.join('');
   }
-  getNews(subject: string) {
+  getNews(sub: string) {
+    const subject = sub.toLowerCase();
     return new Observable<any>(observer => {
       const get = () => {
         const address = this.buildURL(subject);
         console.log(address)
         this.http.get(address)
           .pipe(catchError(err => {
-            console.log({ err });
+            console.log({ err }, 'falling back on cached news data for "%s"', subject);
             retry();
             return of([]);
           }))
@@ -43,6 +44,7 @@ export class ScrollingTextService {
         const address = `/assets/scrolling-data.json`;
         this.http.get<{[prop: string]: NewsArticleList}>(address)
           .subscribe(json => {
+            console.log(subject, json[subject])
             observer.next(json[subject]);
           });
       }

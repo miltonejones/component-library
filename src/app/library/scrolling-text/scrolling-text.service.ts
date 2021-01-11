@@ -31,15 +31,26 @@ export class ScrollingTextService {
     return address.join('');
   }
   getNews(subject: string) {
-    const address = this.buildURL(subject);
     return new Observable<any>(observer => {
-      console.log(address)
-      this.http.get(address)
-        .pipe(catchError(err => {
-          console.log({ err })
-          return of(this.subjectData(subject))
-        }))
-        .subscribe(data => observer.next(data));
+      const get = () => {
+        const address = this.buildURL(subject);
+        console.log(address)
+        this.http.get(address)
+          .pipe(catchError(err => {
+            console.log({ err });
+            retry();
+            return of([]);
+          }))
+          .subscribe(data => observer.next(data));
+      }
+      const retry = () => {
+        const address = `/assets/scrolling-data.json`;
+        this.http.get<{[prop: string]: NewsArticleList}>(address)
+          .subscribe(json => {
+            observer.next(json[subject]);
+          });
+      }
+      get();
     });
   }
 }

@@ -9,6 +9,7 @@ import { PlayheadCommand } from './components/eq-playhead/playhead-command.enum'
 import { GlobalEventService } from '../shared/global-event.service';
 import { CollapseEvent } from '../shared/viewmodel/collapse-event.enum';
 import { CollapseEventData } from '../shared/viewmodel/collapse-event-data';
+import { AudioContextState } from '../eq-label/audio-context-state.enum';
 
 export const SONG_HOST = 'https://s3.amazonaws.com/box.import/';
 @Component({
@@ -63,6 +64,12 @@ export class MediaPlayerComponent implements OnInit, AfterViewInit {
     this.gs.elementCollapse.subscribe((data: CollapseEventData) => {
       this.dropped = data.source === 'box' && data.event === CollapseEvent.EXPAND ? 'on' : 'off'
     });
+  }
+  resume(): void {
+    this.connect.resume();
+  }
+  get connected(): boolean {
+    return this.connect.state === AudioContextState.RUNNING;
   }
   get barType(): EqDisplayType {
     return this.isBar ? EqDisplayType.CSS : EqDisplayType.LINE;

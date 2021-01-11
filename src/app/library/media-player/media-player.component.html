@@ -6,8 +6,13 @@
     [class.collapsed]="collapsed">
 
     <ul class="genre-list">
-        <li [app-eq-playhead]="file" [progress]="progress" (command)="doCommand($event)"
+        <li [app-eq-playhead]="file" *ngIf="connected" [progress]="progress" (command)="doCommand($event)"
         [paused]="player$.paused" [drop]="drop" [collapsed]="collapsed"></li>
+
+
+        <li [hidden]="connected" class="playhead-error" (click)="resume()">
+            The audio context did not connect. Click here to activate it.
+        </li>
 
         <li [@expand]="g.state" [ngClass]="g.state" *ngFor="let g of genres">
             <div class="genre-name">

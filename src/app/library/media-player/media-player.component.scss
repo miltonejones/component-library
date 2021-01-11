@@ -44,6 +44,11 @@
             background-color: antiquewhite;
           }
         }
+        &.playhead-error {
+          background-color: rgb(243, 217, 221);
+          font-size: .9em;
+          color: firebrick;
+        }
 
         .file-list {
           border: solid 1px #bbb;

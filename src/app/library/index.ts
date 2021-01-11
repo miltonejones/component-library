@@ -26,6 +26,7 @@ export * from './eq-label/eq-label.module'
 export * from './eq-label/eq-label.directive' 
 export * from './eq-label/constants/eq-display-type.enum' 
 export * from './eq-label/audio-analyser.service'
+export * from './eq-label/audio-context-state.enum'
 
 export * from './progress-label/progress-label.module'
 export * from './progress-label/progress-label.directive'
